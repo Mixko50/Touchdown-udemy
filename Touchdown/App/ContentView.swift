@@ -16,7 +16,6 @@ struct ContentView: View {
                 NavigationBarView()
                     .padding(.horizontal, 15)
                     .padding(.bottom )
-                    .padding(.top, UIApplication.shared.windows.first?.safeAreaInsets.top)
                     .background(Color.white)
                     .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 5)
                 
@@ -43,9 +42,8 @@ struct ContentView: View {
                     }
                 }) // ScrollView
             } //: VStack
-            .background(colorBackground.ignoresSafeArea(.all, edges: .all))
+            .background(colorBackground)
         } //: ZStack
-        .ignoresSafeArea(.all, edges: .top)
     }
 }
 

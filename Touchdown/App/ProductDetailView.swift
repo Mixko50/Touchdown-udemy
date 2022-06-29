@@ -8,12 +8,17 @@
 import SwiftUI
 
 struct ProductDetailView: View {
+    
     var body: some View {
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScenes = scenes.first as? UIWindowScene
+        let window = windowScenes?.windows.first?.safeAreaInsets.top
+        
         VStack(alignment: .leading, spacing: 5, content: {
             // Navbar
             NavigationBarDetailView()
                 .padding(.horizontal)
-                .padding(.top, UIApplication.shared.windows.first?.safeAreaInsets.top)
+                .padding(.top, window)
             
             // Header
             HederDetailView()
@@ -22,24 +27,47 @@ struct ProductDetailView: View {
             // Detail Top Bar
             TopPartDetailView()
                 .padding(.horizontal)
+                .zIndex(1)
             
             // Detail Bottom Bar
+            VStack(alignment: .center, spacing: 0, content: {
+                // Ratings + Sizes
+                RatingsSizesDetailView()
+                    .padding(.top, -20)
+                    .padding(.bottom, 10)
+                
+                // Description
+                ScrollView(.vertical, showsIndicators: false, content: {
+                    Text(sampleProduct.description)
+                        .font(.system(.body, design: .rounded))
+                        .foregroundColor(.gray)
+                        .multilineTextAlignment(.leading)
+                })
+                 
+                // Quantity + Favorite
+                QuantityFavouriteDetailView()
+                    .padding(.vertical, 10)
+                    .padding(.horizontal, 15)
+                
+                // Add to cart
+                AddToCartDetailView()
+                    .padding(.bottom, 20)
+                
+                
+                Spacer()
+            })
+            .padding(.horizontal)
+            .background(Color.white.clipShape(CustomShape())
+                .padding(.top, -105))
             
-            // Ratings + Sizes
-            
-            // Description
-            
-            // Quantity + Favorite
-            
-            // Add to cart
-            Spacer()
         })
+        .zIndex(0)
         .ignoresSafeArea(.all, edges: .all)
         .background(Color(
             red: sampleProduct.red,
             green: sampleProduct.green,
             blue: sampleProduct.blue)
-            .ignoresSafeArea(.all, edges: .all))
+        )
     }
 }
 
