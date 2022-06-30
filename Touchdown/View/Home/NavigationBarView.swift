@@ -32,7 +32,9 @@ struct NavigationBarView: View {
             
             Spacer()
             
-            Button(action: {}, label: {
+            Button(action: {
+                feedback.impactOccurred()
+            }, label: {
                 ZStack {
                     Image(systemName: "cart")
                         .font(.title)
